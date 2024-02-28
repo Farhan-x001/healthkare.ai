@@ -1,114 +1,111 @@
-//HomePage.js
-import React, { useState } from 'react';
+// pages/hospital.js
+import styles from '../styles/RequestPage.module.css';
 import { useRouter } from 'next/router';
 
-const HomePage = () => {
+// pages/hospital.js
+import React, { useState } from 'react';
+import RegisteredHospitalsPage from './RegisteredHospitalsPage';
+import PendingRequestsPage from './PendingRequestsPage';
+import RejectedRequestsPage from './RejectedRequestsPage';
+
+const RequestPage = () => {
   const router = useRouter();
-  const dummyData = [
-    {
-      SN: 1,
-      ID: "0A123",
-      name: "Hospital A",
-      contact: "John Doe",
-      Phone:"967457xxx",
-      email: "john@example.com",
-      type: "Hospital",
-      registrationDate: "2023-01-01",
-    },
-    {
-      SN: 2,
-      ID: "0A123",
-      name: "Clinic B",
-      contact: "Jane Smith",
-      Phone:"967457xxx",
-      email: "jane@example.com",
-      type: "Clinic",
-      registrationDate: "2023-02-15",
-    },
-    {
-      SN: 3,
-      ID: "0A123",
-      name: "Hospital C",
-      contact: "Alice Johnson",
-      Phone:"967457xxx",
-      email: "alice@example.com",
-      type: "Hospital",
-      registrationDate: "2023-03-20",
-    },
-    {
-      SN: 4,
-      ID: "0A123",
-      name: "Clinic D",
-      contact: "Bob Brown",
-      Phone:"967457xxx",
-      email: "bob@example.com",
-      type: "Clinic",
-      registrationDate: "2023-04-10",
-    },
-    {
-      SN: 5,
-      ID: "0A123",
-      name: "Hospital E",
-      contact: "Charlie Wilson",
-      Phone:"967457xxx",
-      email: "charlie@example.com",
-      type: "Hospital",
-      registrationDate: "2023-05-05",
-    },
-    {
-      SN: 6,
-      ID: "0A123",
-      name: "Clinic F",
-      contact: "David Lee",
-      Phone:"967457xxx",
-      email: "david@example.com",
-      type: "Clinic",
-      registrationDate: "2023-06-15",
-    },
-    {
-      SN: 7,
-      ID: "0A123",
-      name: "Hospital G",
-      contact: "Eva Martinez",
-      Phone:"967457xxx",
-      email: "eva@example.com",
-      type: "Hospital",
-      registrationDate: "2023-07-20",
-    },
-    {
-      SN: 8,
-      ID: "0A123",
-      name: "Clinic H",
-      contact: "Frank Harris",
-      Phone:"967457xxx",
-      email: "frank@example.com",
-      type: "Clinic",
-      registrationDate: "2023-08-10",
-    },
-    {
-      SN: 9,
-      ID: "0A123",
-      name: "Hospital I",
-      contact: "Grace Taylor",
-      Phone:"967457xxx",
-      email: "grace@example.com",
-      type: "Hospital",
-      registrationDate: "2023-09-05",
-    },
-  ];
-  const currentPageData=dummyData;
+ 
+    const dummyData = [
+        {
+          SN: 1,
+          ID: "0A123",
+          name: "Hospital A",
+          contact: "John Doe",
+          email: "john@example.com",
+          type: "Hospital",
+          registrationDate: "2023-01-01",
+        },
+        {
+          SN: 2,
+          ID: "0A123",
+          name: "Clinic B",
+          contact: "Jane Smith",
+          email: "jane@example.com",
+          type: "Clinic",
+          registrationDate: "2023-02-15",
+        },
+        {
+          SN: 3,
+          ID: "0A123",
+          name: "Hospital C",
+          contact: "Alice Johnson",
+          email: "alice@example.com",
+          type: "Hospital",
+          registrationDate: "2023-03-20",
+        },
+        {
+          SN: 4,
+          ID: "0A123",
+          name: "Clinic D",
+          contact: "Bob Brown",
+          email: "bob@example.com",
+          type: "Clinic",
+          registrationDate: "2023-04-10",
+        },
+        {
+          SN: 5,
+          ID: "0A123",
+          name: "Hospital E",
+          contact: "Charlie Wilson",
+          email: "charlie@example.com",
+          type: "Hospital",
+          registrationDate: "2023-05-05",
+        },
+        {
+          SN: 6,
+          ID: "0A123",
+          name: "Clinic F",
+          contact: "David Lee",
+          email: "david@example.com",
+          type: "Clinic",
+          registrationDate: "2023-06-15",
+        },
+        {
+          SN: 7,
+          ID: "0A123",
+          name: "Hospital G",
+          contact: "Eva Martinez",
+          email: "eva@example.com",
+          type: "Hospital",
+          registrationDate: "2023-07-20",
+        },
+        {
+          SN: 8,
+          ID: "0A123",
+          name: "Clinic H",
+          contact: "Frank Harris",
+          email: "frank@example.com",
+          type: "Clinic",
+          registrationDate: "2023-08-10",
+        },
+        {
+          SN: 9,
+          ID: "0A123",
+          name: "Hospital I",
+          contact: "Grace Taylor",
+          email: "grace@example.com",
+          type: "Hospital",
+          registrationDate: "2023-09-05",
+        },
+      ];
+      const currentPageData=dummyData;
   const recordsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const [searchQuery, setSearchQuery] = useState(""); // State to hold search query
+  const [searchQuery, setSearchQuery] = useState(''); // State to hold search query
   const [selectedDate, setSelectedDate] = useState(''); // State to hold selected date
   const [filteredData, setFilteredData] = useState(dummyData); // State to hold filtered data
   const totalPages = Math.ceil(dummyData.length / recordsPerPage);
  
   const handleKeyPress = (event) => {
-  //  let filtered=currentPageData;
     if (event.key === 'Enter') {
       event.preventDefault();
-      const filtered = dummyData.filter(record =>
+      const filtered = currentPageData.filter(record =>
         record.SN.toString().includes(searchQuery) ||
         record.name.toLowerCase().includes(searchQuery) ||
         record.contact.toLowerCase().includes(searchQuery)
@@ -160,19 +157,20 @@ const HomePage = () => {
     setFilteredData(filtered);
     setCurrentPage(1); 
     };
-  return (
-    <div>
-     <div className="top-bar">
-        <h2>HealthKare.AI</h2>
-        <div className="admin-info">
-          <p>Hi Admin</p>
-          <button onClick={() => router.push('/login')}>Logout</button>
+        const [activePage, setActivePage] = useState('registered'); // Default to registered hospitals/clinics
+      
         
-
-        </div>
-      </div>
-      <div className="content">
-      <nav className="vertical-navbar">
+      return (
+        <div>
+         <div className="top-bar">
+            <h2>HealthKare.AI</h2>
+            <div className="admin-info">
+              <p>Hi Admin</p>
+              <button>Logout</button>
+            </div>
+          </div>
+          <div className="content">
+          <nav className="vertical-navbar">
       <ul>
         <li>
           <img src="/images/dashboard.png" alt="" />
@@ -192,38 +190,21 @@ const HomePage = () => {
         </li>          
       </ul>
     </nav>
-        <div className="dashboard-data">
-          {/* Your dashboard data content here */}
-          {/* For example: */}
-          <div className="head-data">
-          <h3>Hi XYZ, Welcome to your Dashboard</h3>
-          <p>This is where your dashboard data goes.</p>
-          </div>
-           
-           <div className="boxline">
-
-          <div className="box">
-            <h2>120</h2>
-            <img src="icon1.png" alt="Icon 1" />
-            <p>Registered Hospitals</p>
-          </div>
-          <div className="box">
-            <h2>29</h2>
-            <img src="icon2.png" alt="Icon 2" />
-            <p>Pending requests</p>
-          </div>
-          <div className="box">
-            <h2>224</h2>
-            <img src="icon3.png" alt="Icon 3" />
-            <p>Total Doctors</p>
-          </div>
-          <div className="box">
-            <h2>32k</h2>
-            <img src="icon4.png" alt="Icon 4" />
-            <p>Daily Revenue</p>
-          </div>
-           </div>
-           <div className="topbartable">
+            <div className="dashboard-data">
+              {/* Your dashboard data content here */}
+              {/* For example: */}
+              <div className="head-data">
+              <h1>Requests</h1>
+              </div>
+          <nav className={styles.horizontalnavbar}>
+            
+        <ul className={styles.horizontalnavbar}>
+          <li><a onClick={() => router.push('/register')}>Registered Hospital/clinics 120</a></li>
+          <li><a onClick={() => router.push('/pending')}>Pending Request 32</a></li>
+          <li><a onClick={() => router.push('/reject')}>Rejected Request 32</a></li>
+        </ul>
+      </nav>
+      <div className="topbartable">
             <h2>Newly onboarded</h2>
                   <div className="fields">
                     <div className="field">
@@ -253,7 +234,6 @@ const HomePage = () => {
                   <th>ID</th>
                   <th>Name</th>
                   <th>Point of Contact</th>
-                  <th>Phone number</th>
                   <th>Email</th>
                   <th>Type</th>
                   <th>Registration Date</th>
@@ -268,7 +248,6 @@ const HomePage = () => {
                 <td>{record.ID}</td>
                 <td>{record.name}</td>
                 <td>{record.contact}</td>
-                <td>{record.Phone}</td>
                 <td>{record.email}</td>
                 <td>
             <div className={`type-oval ${record.type === 'Hospital' ? 'type-hospital' : 'type-clinic'}`}>
@@ -305,5 +284,4 @@ const HomePage = () => {
   );
 };
 
-
-export default HomePage;
+export default RequestPage;

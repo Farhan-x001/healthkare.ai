@@ -1,8 +1,14 @@
-//HomePage.js
-import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const HomePage = () => {
+// pages/hospital.js
+import React, { useState } from 'react';
+import RegisteredHospitalsPage from './RegisteredHospitalsPage';
+import RejectedRequestsPage from './RejectedRequestsPage';
+import styles from '../styles/HospitalPage.module.css';
+
+
+
+const PendingRequestsPage = () =>  {
   const router = useRouter();
   const dummyData = [
     {
@@ -10,105 +16,132 @@ const HomePage = () => {
       ID: "0A123",
       name: "Hospital A",
       contact: "John Doe",
-      Phone:"967457xxx",
       email: "john@example.com",
       type: "Hospital",
       registrationDate: "2023-01-01",
+      requests: {
+        tick: true,
+        cross: false,
+      }
     },
     {
       SN: 2,
       ID: "0A123",
       name: "Clinic B",
       contact: "Jane Smith",
-      Phone:"967457xxx",
       email: "jane@example.com",
       type: "Clinic",
       registrationDate: "2023-02-15",
+      requests: {
+        tick: false,
+        cross: true,
+      }
     },
     {
       SN: 3,
       ID: "0A123",
       name: "Hospital C",
       contact: "Alice Johnson",
-      Phone:"967457xxx",
       email: "alice@example.com",
       type: "Hospital",
       registrationDate: "2023-03-20",
+      requests: {
+        tick: true,
+        cross: false,
+      }
     },
     {
       SN: 4,
       ID: "0A123",
       name: "Clinic D",
       contact: "Bob Brown",
-      Phone:"967457xxx",
       email: "bob@example.com",
       type: "Clinic",
       registrationDate: "2023-04-10",
+      requests: {
+        tick: false,
+        cross: true,
+      }
     },
     {
       SN: 5,
       ID: "0A123",
       name: "Hospital E",
       contact: "Charlie Wilson",
-      Phone:"967457xxx",
       email: "charlie@example.com",
       type: "Hospital",
       registrationDate: "2023-05-05",
+      requests: {
+        tick: true,
+        cross: false,
+      }
     },
     {
       SN: 6,
       ID: "0A123",
       name: "Clinic F",
       contact: "David Lee",
-      Phone:"967457xxx",
       email: "david@example.com",
       type: "Clinic",
       registrationDate: "2023-06-15",
+      requests: {
+        tick: false,
+        cross: true,
+      }
     },
     {
       SN: 7,
       ID: "0A123",
       name: "Hospital G",
       contact: "Eva Martinez",
-      Phone:"967457xxx",
       email: "eva@example.com",
       type: "Hospital",
       registrationDate: "2023-07-20",
+      requests: {
+        tick: true,
+        cross: false,
+      }
     },
     {
       SN: 8,
       ID: "0A123",
       name: "Clinic H",
       contact: "Frank Harris",
-      Phone:"967457xxx",
       email: "frank@example.com",
       type: "Clinic",
       registrationDate: "2023-08-10",
+      requests: {
+        tick: false,
+        cross: true,
+      }
     },
     {
       SN: 9,
       ID: "0A123",
       name: "Hospital I",
       contact: "Grace Taylor",
-      Phone:"967457xxx",
       email: "grace@example.com",
       type: "Hospital",
       registrationDate: "2023-09-05",
+      requests: {
+        tick: true,
+        cross: false,
+      }
     },
   ];
+
   const currentPageData=dummyData;
   const recordsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const [searchQuery, setSearchQuery] = useState(""); // State to hold search query
+  const [searchQuery, setSearchQuery] = useState(''); // State to hold search query
   const [selectedDate, setSelectedDate] = useState(''); // State to hold selected date
   const [filteredData, setFilteredData] = useState(dummyData); // State to hold filtered data
   const totalPages = Math.ceil(dummyData.length / recordsPerPage);
  
   const handleKeyPress = (event) => {
-  //  let filtered=currentPageData;
     if (event.key === 'Enter') {
       event.preventDefault();
-      const filtered = dummyData.filter(record =>
+      const filtered = currentPageData.filter(record =>
         record.SN.toString().includes(searchQuery) ||
         record.name.toLowerCase().includes(searchQuery) ||
         record.contact.toLowerCase().includes(searchQuery)
@@ -172,57 +205,29 @@ const HomePage = () => {
         </div>
       </div>
       <div className="content">
-      <nav className="vertical-navbar">
-      <ul>
-        <li>
-          <img src="/images/dashboard.png" alt="" />
-          <a onClick={() => router.push('/home')}>Dashboard</a>
-        </li>
-        <li>
-          <img src="/images/hospital.png" alt="" />
-          <a onClick={() => router.push('/hospitals')}>Hospitals</a>
-        </li>
-        <li>
-          <img src="/images/request.png" alt="" />
-          <a onClick={() => router.push('/request')}>Requests</a>
-        </li>
-        <li>
-          <img src="/images/ads.png" alt="" />
-          <a onClick={() => router.push('/ads')}>Ads Banner</a>
-        </li>          
-      </ul>
-    </nav>
+        <nav className="vertical-navbar">
+          <ul>
+          <li><a onClick={() => router.push('/home')}>Dashboard</a></li>
+            <li><a onClick={() => router.push('/hospitals')}>Hospitals</a></li>
+            <li><a onClick={() => router.push('/request')}>Requests</a></li>
+            <li><a onClick={() => router.push('/ads')}>Ads Banner</a></li>          
+          </ul>
+        </nav>
         <div className="dashboard-data">
-          {/* Your dashboard data content here */}
-          {/* For example: */}
+        
           <div className="head-data">
           <h3>Hi XYZ, Welcome to your Dashboard</h3>
           <p>This is where your dashboard data goes.</p>
           </div>
            
-           <div className="boxline">
-
-          <div className="box">
-            <h2>120</h2>
-            <img src="icon1.png" alt="Icon 1" />
-            <p>Registered Hospitals</p>
-          </div>
-          <div className="box">
-            <h2>29</h2>
-            <img src="icon2.png" alt="Icon 2" />
-            <p>Pending requests</p>
-          </div>
-          <div className="box">
-            <h2>224</h2>
-            <img src="icon3.png" alt="Icon 3" />
-            <p>Total Doctors</p>
-          </div>
-          <div className="box">
-            <h2>32k</h2>
-            <img src="icon4.png" alt="Icon 4" />
-            <p>Daily Revenue</p>
-          </div>
-           </div>
+          <nav className={styles.horizontalnavbar}>
+            
+            <ul className={styles.horizontalnavbar}>
+              <li><a onClick={() => router.push('/register')}>Registered Hospital/clinics 120</a></li>
+              <li><a onClick={() => router.push('/pending')}>Pending Request 32</a></li>
+              <li><a onClick={() => router.push('/reject')}>Rejected Request 32</a></li>
+            </ul>
+          </nav>
            <div className="topbartable">
             <h2>Newly onboarded</h2>
                   <div className="fields">
@@ -246,29 +251,24 @@ const HomePage = () => {
 
           {dummyData.length > 0 ? (
             <table>
-              {/* Table headers */}
               <thead>
                 <tr>
                   <th>SN</th>
                   <th>ID</th>
                   <th>Name</th>
                   <th>Point of Contact</th>
-                  <th>Phone number</th>
                   <th>Email</th>
                   <th>Type</th>
                   <th>Registration Date</th>
                 </tr>
               </thead>
-              {/* Table body */}
                <tbody>
-            {/* Map through filtered data and render table rows */}
             {filteredData.map((record, index) => (
               <tr key={index}>
                 <td>{record.SN}</td>
                 <td>{record.ID}</td>
                 <td>{record.name}</td>
                 <td>{record.contact}</td>
-                <td>{record.Phone}</td>
                 <td>{record.email}</td>
                 <td>
             <div className={`type-oval ${record.type === 'Hospital' ? 'type-hospital' : 'type-clinic'}`}>
@@ -276,6 +276,10 @@ const HomePage = () => {
             </div>
                 </td>
                 <td>{record.registrationDate}</td>
+                <td>
+            <button>{record.requests.tick = '✔' }</button>
+            <button>{record.requests.cross = '✗' }</button>
+        </td>
               </tr>
             ))}
           </tbody>
@@ -305,5 +309,4 @@ const HomePage = () => {
   );
 };
 
-
-export default HomePage;
+export default PendingRequestsPage;

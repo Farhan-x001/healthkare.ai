@@ -7,7 +7,7 @@ import styles from '../styles/LoginPage.module.css';
 const LoginPage = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [emailValid, setEmailValid] = useState(true);
+  const [emailValid, setEmailValid] = useState(false);
   const router = useRouter();
 
   const handleLogin = () => {
@@ -69,4 +69,3 @@ const LoginPage = ({ setIsAuthenticated }) => {
 };
 
 export default LoginPage;
-// edit this document

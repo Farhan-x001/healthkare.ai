@@ -1,7 +1,6 @@
-// pages/home.js
+//home.js
+import HomePage from '../components/HomePage'; // Correct the import statement
 
-import HomePage from '../components/HomePage';
-
-export default function Home() {
-  return <HomePage />;
+export default function Home() { // Correct the function declaration
+  return <HomePage />; // Render the correct component
 }
